@@ -262,9 +262,9 @@ impl Camera for Camera3D {
         };
 
         if self.render_target.is_some() {
-            Mat4::from_scale(Vec3::new(1.0, -1.0, 1.0)) * projection
-        } else {
             projection
+        } else {
+            Mat4::from_scale(Vec3::new(1.0, -1.0, 1.0)) * projection
         }
     }
 
