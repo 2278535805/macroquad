@@ -48,11 +48,11 @@ fn waker() -> Waker {
     unsafe fn clone(data: *const ()) -> RawWaker {
         RawWaker::new(data, &VTABLE)
     }
-    unsafe fn wake(_data: *const ()) {
-        panic!(
-            "macroquad does not support waking futures, please use coroutines, \
-            otherwise your pending future will block until the next frame"
-        )
+    unsafe fn wake(_data: *const ()) { // Hide this warning
+        // panic!(
+        //     "macroquad does not support waking futures, please use coroutines, \
+        //     otherwise your pending future will block until the next frame"
+        // )
     }
     unsafe fn wake_by_ref(data: *const ()) {
         wake(data);
