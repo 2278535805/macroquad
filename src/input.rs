@@ -154,9 +154,9 @@ pub fn get_char_pressed() -> Option<char> {
 }
 
 /// Return the current IME preedit text, if any.
-pub fn get_ime_preedit() -> Option<String> {
+pub fn get_ime_preedit() -> Option<(String, usize)> {
     let context = get_context();
-    if context.ime_preedit.is_empty() {
+    if context.ime_preedit.0.is_empty() {
         None
     } else {
         Some(context.ime_preedit.clone())

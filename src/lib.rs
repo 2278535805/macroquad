@@ -191,7 +191,7 @@ struct Context {
     touches: HashMap<u64, input::Touch>,
     chars_pressed_queue: VecDeque<char>,
     chars_pressed_ui_queue: VecDeque<char>,
-    ime_preedit: String,
+    ime_preedit: (String, usize),
     ime_commit_queue: Vec<Option<String>>,
     ime_state: Option<input::ImeState>,
     mouse_position: Vec2,
@@ -338,7 +338,7 @@ impl Context {
             mouse_position: vec2(0., 0.),
             last_mouse_position: None,
             mouse_wheel: vec2(0., 0.),
-            ime_preedit: String::new(),
+            ime_preedit: (String::new(), 0),
             ime_commit_queue: Vec::new(),
             ime_state: None,
 
@@ -701,14 +701,15 @@ impl EventHandler for Stage {
         });
     }
 
-    fn on_ime_preedit(&mut self, text: &str) {
+    fn on_ime_preedit(&mut self, text: &str, cursor_pos: usize) {
         let context = get_context();
-        context.ime_preedit = text.to_string();
+        context.ime_preedit = (text.to_string(), cursor_pos);
     }
 
     fn on_ime_commit(&mut self, text: Option<&str>) {
         let context = get_context();
-        context.ime_preedit.clear();
+        context.ime_preedit.0.clear();
+        context.ime_preedit.1 = 0;
         context.ime_commit_queue.push(text.map(|value| value.to_string()));
     }
 
