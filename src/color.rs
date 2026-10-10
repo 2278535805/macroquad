@@ -125,10 +125,16 @@ impl Color {
     /// assert_eq!(light_blue.b, 0.8352941);
     /// assert_eq!(light_blue.a, 1.00);
     /// ```
-    pub const fn from_hex(hex: u32) -> Color {
+    pub const fn from_hex_rgb(hex: u32) -> Color {
         let bytes: [u8; 4] = hex.to_be_bytes();
 
         Self::from_rgba(bytes[1], bytes[2], bytes[3], 255)
+    }
+
+    pub const fn from_hex_argb(hex: u32) -> Color {
+        let bytes: [u8; 4] = hex.to_be_bytes();
+
+        Self::from_rgba(bytes[1], bytes[2], bytes[3], bytes[0])
     }
 
     /// Create a vec4 of red, green, blue, and alpha components.
